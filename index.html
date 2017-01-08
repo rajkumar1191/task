@@ -1,0 +1,140 @@
+<html>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.2/fabric.min.js"></script>
+    <body>
+        <canvas id="c" width="300" height="130" style="border:1px solid #ccc"></canvas>
+    </body>
+    </html>
+<script type="text/javascript">
+var canvas = new fabric.Canvas('c', { selection: false });
+
+var line, isDown;
+var startPosition,endPosition;
+
+canvas.on('mouse:up', function(o){
+  isDown = false;
+  var pointer = canvas.getPointer(o.e);
+  endPosition = pointer;
+  var startPositionPoint = startPosition.y;
+  var endPositionPoint = endPosition.y;
+  if((startPositionPoint>5)&&(startPositionPoint<25)&&(endPositionPoint>65)&&(endPositionPoint<85))
+  {
+    $("#A1").css({"background":"green","color":"#fff"});
+    $("#A2").css({"background":"green","color":"#fff"});
+  }
+  else if((startPositionPoint>5)&&(startPositionPoint<25))
+  {
+    $("#A1").css({"background":"red","color":"#fff"});
+  }
+  else if((startPositionPoint>35)&&(startPositionPoint<55)&&(endPositionPoint>05)&&(endPositionPoint<25))
+  {
+    $("#B1").css({"background":"green","color":"#fff"});
+    $("#B2").css({"background":"green","color":"#fff"});
+  }
+  else if((startPositionPoint>35)&&(startPositionPoint<55))
+  {
+    $("#B1").css({"background":"red","color":"#fff"});
+  }
+  else if((startPositionPoint>65)&&(startPositionPoint<85)&&(endPositionPoint>85)&&(endPositionPoint<120))
+  {
+    $("#C1").css({"background":"green","color":"#fff"});
+    $("#C2").css({"background":"green","color":"#fff"});
+  }
+  else if((startPositionPoint>65)&&(startPositionPoint<85))
+  {
+    $("#C1").css({"background":"red","color":"#fff"});
+  }
+  else if((startPositionPoint>85)&&(startPositionPoint<120)&&(endPositionPoint>35)&&(endPositionPoint<55))
+  {
+    $("#D1").css({"background":"green","color":"#fff"});
+    $("#D2").css({"background":"green","color":"#fff"});
+  }
+  else if((startPositionPoint>85)&&(startPositionPoint<120))
+  {
+    $("#D1").css({"background":"red","color":"#fff"});
+  }
+});
+
+canvas.on('mouse:down', function(o){
+  isDown = true;
+  var pointer = canvas.getPointer(o.e);
+  startPosition = pointer;
+  var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
+  line = new fabric.Line(points, {
+    strokeWidth: 5,
+    fill: 'black',
+    stroke: 'black',
+    originX: 'center',
+    originY: 'center'
+  });
+  canvas.add(line);
+});
+
+canvas.on('mouse:move', function(o){
+  if (!isDown) return;
+  var pointer = canvas.getPointer(o.e);
+
+  line.set({ x2: pointer.x, y2: pointer.y });
+  canvas.renderAll();
+});
+
+
+var $testButton = $('<input/>').attr({
+    type: 'button',
+    name: 'btn1',
+    value: 'A',
+    id: 'A1',
+    style: 'position:absolute;left:50px;top:15px;zindex:2'
+});
+var $testButton1 = $('<input/>').attr({
+   type: 'button',
+    name: 'btn2',
+    value: 'B',
+    id: 'B1',
+    style: 'position:absolute;left:50px;top:45px;zindex:2'
+});
+var $testButton3 = $('<input/>').attr({
+    type: 'button',
+    name: 'btn3',
+    value: 'C',
+    id: 'C1',
+    style: 'position:absolute;left:50px;top:75px;zindex:2'
+});
+var $testButton4 = $('<input/>').attr({
+   type: 'button',
+    name: 'btn4',
+    value: 'D',
+    id: 'D1',
+    style: 'position:absolute;left:50px;top:105px;zindex:2'
+});
+var $testOppoButton1 = $('<input/>').attr({
+   type: 'button',
+    name: 'btn5',
+    value: 'B',
+    id: 'B2',
+    style: 'position:absolute;left:250px;top:15px;zindex:2'
+});
+var $testOppoButton4 = $('<input/>').attr({
+   type: 'button',
+    name: 'btn6',
+    value: 'D',
+    id: 'D2',
+    style: 'position:absolute;left:250px;top:45px;zindex:2'
+});
+var $testOppoButton = $('<input/>').attr({
+    type: 'button',
+    name: 'btn7',
+    value: 'A',
+    id: 'A2',
+    style: 'position:absolute;left:250px;top:75px;zindex:2'
+});
+var $testOppoButton3 = $('<input/>').attr({
+    type: 'button',
+    name: 'btn8',
+    value: 'C',
+    id: 'C2',
+    style: 'position:absolute;left:250px;top:105px;zindex:2'
+});
+$('body').append($testButton,$testButton1,$testButton3,$testButton4,$testOppoButton1,$testOppoButton4,$testOppoButton,$testOppoButton3);
+
+</script>
